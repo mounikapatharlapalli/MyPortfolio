@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import contactImage from '../assets/cc1.jpg'; // Your image path
 
+// ✅ Environment-based API URL
+const API = process.env.REACT_APP_API_URL;
+
 const Contact = () => {
   const [formData, setFormData] = useState({
     firstName: '',
@@ -20,7 +23,7 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/contact', formData);
+      await axios.post(`${API}/contact`, formData); // ✅ Using environment variable
       setSubmitted(true);
       setFormData({
         firstName: '',
@@ -31,6 +34,7 @@ const Contact = () => {
       });
     } catch (error) {
       alert('Something went wrong.');
+      console.error(error);
     }
   };
 
@@ -121,7 +125,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact"> {/* 👈 This is the fix for Home.js scroll issue */}
+    <section id="contact">
       <div style={styles.wrapper}>
         <div style={styles.formContainer}>
           <h2 style={styles.title}>Get in Touch</h2>
