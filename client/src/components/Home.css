@@ -1,0 +1,248 @@
+/* Base Home Section */
+.home-section {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  padding: 2rem 6rem;
+  background: white;
+  background-image: radial-gradient(circle at top right, #d9e9ff 0%, transparent 70%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #073b4c;
+  overflow: hidden;
+  animation: fadeIn 1s ease-out forwards;
+}
+
+/* Layout Flex */
+.home-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  gap: 4rem;
+  flex-wrap: wrap;
+}
+
+/* Text Block */
+.text-container {
+  flex: 1 1 400px;
+  max-width: 600px;
+  opacity: 0;
+  transform: translateX(-40px);
+  animation: slideInLeft 1s ease-out forwards 0.5s;
+}
+
+.text-container h1 {
+  font-size: 3rem;
+  margin-bottom: 0.2rem;
+  font-weight: 700;
+}
+
+.text-container h2 {
+  font-size: 1.8rem;
+  color: #05668d;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.text-container p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: #055a7f;
+}
+
+/* Email Line */
+.email-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 1.8rem;
+  color: #055a7f;
+}
+
+.email-line a {
+  color: #055a7f;
+  text-decoration: none;
+}
+
+.email-line a:hover {
+  text-decoration: underline;
+}
+
+.email-icon {
+  color: #05668d;
+  font-size: 1.1rem;
+}
+
+/* Button Group */
+.btn-group {
+  display: flex;
+  flex-wrap: nowrap;       /* Ensure buttons stay in a single row on wide screens */
+  gap: 5rem;                /* 👈 More space between the two buttons */
+  justify-content: flex-start;
+  margin-top: 1.5rem;
+}
+
+/* Buttons */
+.btn {
+  text-decoration: none;
+  padding: 0.75rem 1.2rem; /* Taller height */
+  font-weight: 600;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 4px 10px rgba(5, 102, 141, 0.2);
+  font-size: 0.95rem;
+  min-width: 200px;
+  text-align: center;
+}
+
+.btn-primary {
+  background-color: #05668d;
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #044f63;
+  box-shadow: 0 6px 20px rgba(4, 79, 99, 0.5);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border: 2px solid #05668d;
+  color: #05668d;
+}
+
+.btn-secondary:hover {
+  background-color: #05668d;
+  color: white;
+  box-shadow: 0 6px 20px rgba(5, 102, 141, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Photo Container */
+.photo-container {
+  flex: 0 1 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transform: translateX(100px);
+  animation: slideInRight 1s ease-out forwards 0.9s;
+}
+
+.photo-container img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 80%; /* 👈 Perfect circle */
+  object-fit: cover;
+  box-shadow: 0 10px 25px rgba(5, 102, 141, 0.3);
+  border: 4px solid white;
+}
+
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Tablets & Small Desktops */
+@media screen and (max-width: 1024px) {
+  .home-section {
+    padding: 2rem 3rem;
+  }
+
+  .text-container h1 {
+    font-size: 2.5rem;
+  }
+
+  .text-container h2 {
+    font-size: 1.6rem;
+  }
+
+  .text-container p {
+    font-size: 1rem;
+  }
+}
+
+/* Mobile Screens */
+@media screen and (max-width: 768px) {
+  .home-content {
+    flex-direction: column;
+    padding: 0 1.5rem;
+    gap: 2rem;
+  }
+
+  .text-container,
+  .photo-container {
+    transform: none;
+    animation: fadeIn 1s ease-out forwards;
+    text-align: center;
+  }
+
+  .text-container h1 {
+    font-size: 2rem;
+  }
+
+  .text-container h2 {
+    font-size: 1.4rem;
+  }
+
+  .text-container p {
+    font-size: 1rem;
+  }
+
+  .btn-group {
+    flex-direction: column;
+    gap: 1.5rem;  /* Increased gap between stacked buttons */
+    align-items: center;
+  }
+
+  .btn {
+    width: 90%;
+    max-width: 300px;
+  }
+
+  .photo-container {
+    margin-top: 1.5rem;
+  }
+
+  .email-line {
+    justify-content: center;
+  }
+}

@@ -1,0 +1,280 @@
+.about-section {
+  background: white;
+  background-image: radial-gradient(circle at top right, #d9e9ff 0%, transparent 70%);
+  padding: 4rem 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #073b4c;
+  min-height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.about-content {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.about-image {
+  flex: 0 0 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-image img {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 12px 25px rgba(5, 102, 141, 0.3);
+  border: 5px solid white;
+  background-color: white;
+  transition: transform 0.3s ease;
+}
+
+.about-image img:hover {
+  transform: scale(1.05);
+}
+
+.about-text {
+  flex: 1 1 400px;
+  max-width: 700px;
+}
+
+.about-text h2 {
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  color: #05668d;
+}
+
+.about-text h3 {
+  font-size: 1.8rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: #073b4c;
+}
+
+.about-text p {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: #055a7f;
+  max-width: 650px;
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.skills span {
+  background-color: #e6f0fa;
+  color: #05668d;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(5, 102, 141, 0.15);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: default;
+}
+
+.skills span:hover {
+  background-color: #05668d;
+  color: white;
+}
+
+.fade-in-left {
+  animation: fadeInLeft 1s ease forwards;
+  opacity: 0;
+}
+
+.fade-in-right {
+  animation: fadeInRight 1s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInLeft {
+  from {
+    transform: translateX(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    transform: translateX(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.education-btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #05668d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.education-btn:hover {
+  background-color: #023e8a;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem 3rem;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  color: #073b4c;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.modal-content h3,
+.modal-content h4 {
+  margin-bottom: 1rem;
+  color: #05668d;
+}
+
+.modal-content ul {
+  margin-bottom: 1.5rem;
+  padding-left: 20px;
+}
+
+.modal-content li {
+  margin-bottom: 0.8rem;
+  font-weight: 500;
+}
+
+.close-btn {
+  padding: 8px 18px;
+  background-color: #05668d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.close-btn:hover {
+  background-color: #023e8a;
+}
+
+/* Social Icons */
+.profile-icons {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  margin-top: 0px;
+}
+
+.profile-icons a {
+  color: #05668d;
+  font-size: 50px;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.profile-icons a:hover {
+  color: #023e8a;
+  transform: scale(1.2);
+}
+
+/* ✅ Responsive Section */
+@media screen and (max-width: 900px) {
+  .about-content {
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .about-image,
+  .about-text {
+    max-width: 100%;
+    flex: 1 1 100%;
+  }
+
+  .about-text h2 {
+    font-size: 2.2rem;
+  }
+
+  .about-text h3 {
+    font-size: 1.4rem;
+  }
+
+  .about-text p {
+    font-size: 1rem;
+  }
+
+  .skills {
+    justify-content: center;
+  }
+}
+
+/* 📱 Extra Mobile Friendly */
+@media screen and (max-width: 600px) {
+  .about-section {
+    padding: 3rem 1.2rem;
+  }
+
+  .about-text h2 {
+    font-size: 2rem;
+  }
+
+  .about-text h3 {
+    font-size: 1.2rem;
+  }
+
+  .about-text p {
+    font-size: 0.95rem;
+  }
+
+  .profile-icons {
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+
+  .profile-icons a {
+    font-size: 40px;
+  }
+
+  .modal-content {
+    padding: 1.5rem 1.2rem;
+  }
+}
