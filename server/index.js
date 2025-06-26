@@ -5,44 +5,44 @@ require('dotenv').config();
 
 const app = express();
 
-// ✅ CORS: Allow only your Vercel frontend
+// ✅ CORS for your frontend domain
 app.use(cors({
-  origin: 'https://mounika-portfolio.vercel.app', // your actual deployed frontend URL
+  origin: 'https://mounika-portfolio.vercel.app',
   methods: ['POST', 'GET'],
 }));
 
 app.use(express.json());
 
-// ✅ Contact Route
+// ✅ POST /contact route
 app.post('/contact', async (req, res) => {
-  const { name, email, message } = req.body;
+  const { firstName, lastName, email, phone, message } = req.body;
 
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
-    }
+      pass: process.env.EMAIL_PASS,
+    },
   });
 
   const mailOptions = {
     from: email,
     to: process.env.EMAIL_USER,
-    subject: `Contact form submission from ${name}`,
-    text: message
+    subject: `New Message from ${firstName} ${lastName}`,
+    text: `Phone: ${phone}\n\n${message}`,
   };
 
   try {
     await transporter.sendMail(mailOptions);
     res.status(200).json({ success: true });
   } catch (error) {
-    console.error(error);
+    console.error("❌ Email send error:", error);
     res.status(500).json({ success: false });
   }
 });
 
-// ✅ Dynamic PORT for Render
+// ✅ Dynamic port for Render
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
+  console.log(`✅ Server started on port ${PORT}`);
 });
