@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import contactImage from '../assets/cc1.jpg'; // Your image path
+import contactImage from '../assets/cc1.jpg';
 
-// ✅ Environment-based API URL
-const API = process.env.REACT_APP_API_URL;
+// Use env var, fallback to localhost
+const API = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -13,8 +13,8 @@ const Contact = () => {
     phone: '',
     message: ''
   });
-
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,23 +22,21 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
     try {
-      await axios.post(`${API}/contact`, formData); // ✅ Using environment variable
-      setSubmitted(true);
-      setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        message: ''
-      });
-    } catch (error) {
-      alert('Something went wrong.');
-      console.error(error);
+      const res = await axios.post(`${API}/contact`, formData);
+      if (res.data.success) {
+        setSubmitted(true);
+        setFormData({ firstName: '', lastName: '', email: '', phone: '', message: '' });
+      } else {
+        setError('Failed to send. Please try again.');
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Something went wrong. Please try again later.');
     }
   };
 
-  // Responsive: Check screen size
   const isMobile = window.innerWidth < 768;
 
   const styles = {
@@ -54,11 +52,7 @@ const Contact = () => {
       overflow: 'hidden',
       fontFamily: 'Segoe UI, sans-serif',
     },
-    formContainer: {
-      flex: 1,
-      padding: '35px',
-      minWidth: '300px'
-    },
+    formContainer: { flex: 1, padding: '35px', minWidth: '300px' },
     imageContainer: {
       flex: 1,
       minWidth: '300px',
@@ -67,19 +61,8 @@ const Contact = () => {
       alignItems: 'center',
       justifyContent: 'center',
     },
-    image: {
-      width: '100%',
-      height: 'auto',
-      maxHeight: '100%',
-      objectFit: 'cover',
-      padding: '20px',
-    },
-    title: {
-      fontSize: '2rem',
-      marginBottom: '30px',
-      color: '#2a6f97',
-      fontWeight: 'bold',
-    },
+    image: { width: '100%', height: 'auto', maxHeight: '100%', objectFit: 'cover', padding: '20px' },
+    title: { fontSize: '2rem', marginBottom: '30px', color: '#2a6f97', fontWeight: 'bold' },
     row: {
       display: 'flex',
       flexDirection: isMobile ? 'column' : 'row',
@@ -121,6 +104,12 @@ const Contact = () => {
       color: '#198754',
       fontWeight: 'bold',
       marginTop: '15px',
+    },
+    errorMessage: {
+      textAlign: 'center',
+      color: '#dc3545',
+      fontWeight: 'bold',
+      marginTop: '15px',
     }
   };
 
@@ -131,60 +120,19 @@ const Contact = () => {
           <h2 style={styles.title}>Get in Touch</h2>
           <form onSubmit={handleSubmit}>
             <div style={styles.row}>
-              <input
-                type="text"
-                name="firstName"
-                placeholder="First Name"
-                style={styles.input}
-                value={formData.firstName}
-                onChange={handleChange}
-                required
-              />
-              <input
-                type="text"
-                name="lastName"
-                placeholder="Last Name"
-                style={styles.input}
-                value={formData.lastName}
-                onChange={handleChange}
-                required
-              />
+              <input type="text" name="firstName" placeholder="First Name" style={styles.input} value={formData.firstName} onChange={handleChange} required />
+              <input type="text" name="lastName" placeholder="Last Name" style={styles.input} value={formData.lastName} onChange={handleChange} required />
             </div>
             <div style={styles.row}>
-              <input
-                type="email"
-                name="email"
-                placeholder="Email Address"
-                style={styles.input}
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-              <input
-                type="tel"
-                name="phone"
-                placeholder="Phone Number"
-                style={styles.input}
-                value={formData.phone}
-                onChange={handleChange}
-                required
-              />
+              <input type="email" name="email" placeholder="Email Address" style={styles.input} value={formData.email} onChange={handleChange} required />
+              <input type="tel" name="phone" placeholder="Phone Number" style={styles.input} value={formData.phone} onChange={handleChange} required />
             </div>
-            <textarea
-              name="message"
-              placeholder="Your Message"
-              style={styles.textarea}
-              value={formData.message}
-              onChange={handleChange}
-              required
-            />
-            <button type="submit" style={styles.button}>
-              Send 📤
-            </button>
+            <textarea name="message" placeholder="Your Message" style={styles.textarea} value={formData.message} onChange={handleChange} required />
+            <button type="submit" style={styles.button}>Send 📤</button>
           </form>
           {submitted && <div style={styles.successMessage}>Thanks! Your message has been sent.</div>}
+          {error && <div style={styles.errorMessage}>{error}</div>}
         </div>
-
         <div style={styles.imageContainer}>
           <img src={contactImage} alt="Contact Us" style={styles.image} />
         </div>
